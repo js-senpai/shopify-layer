@@ -23,7 +23,7 @@ export default class ChangeOrderStatusDto {
   @ApiProperty({ nullable: false, required: true, type: String })
   orderId: string;
 
-  @IsEnum(OrderStatusEnum)
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({ nullable: false, required: true, type: String })
   status: string;
