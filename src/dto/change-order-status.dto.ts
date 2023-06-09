@@ -1,5 +1,16 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+enum OrderStatusEnum {
+  AUTHORIZED = 'AUTHORIZED',
+  EXPIRED = 'EXPIRED',
+  PAID = 'PAID',
+  PARTIALLY_PAID = 'PARTIALLY_PAID',
+  PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
+  PENDING = 'PENDING',
+  REFUNDED = 'REFUNDED',
+  VOIDED = 'VOIDED',
+}
 
 export default class ChangeOrderStatusDto {
   @IsString()
@@ -12,7 +23,7 @@ export default class ChangeOrderStatusDto {
   @ApiProperty({ nullable: false, required: true, type: String })
   orderId: string;
 
-  @IsString()
+  @IsEnum(OrderStatusEnum)
   @IsNotEmpty()
   @ApiProperty({ nullable: false, required: true, type: String })
   status: string;
