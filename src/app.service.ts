@@ -39,7 +39,7 @@ export class AppService {
     status,
     accountId,
     orderId,
-  }: ChangeOrderStatusDto): Promise<{ ok: string }> {
+  }: ChangeOrderStatusDto): Promise<any> {
     const [getProject] = appConfig.projects.filter(
       (item) => item.accountId === accountId,
     );
@@ -48,7 +48,9 @@ export class AppService {
         `The project with accountId "${accountId}" not found`,
       );
     }
-    await axios.put(
+    const {
+      data: { order = {} },
+    } = await axios.put(
       `https://${getProject.hostName}.myshopify.com/admin/api/2023-04/orders/${orderId}.json`,
       {
         order: {
@@ -61,8 +63,6 @@ export class AppService {
         },
       },
     );
-    return {
-      ok: 'The status has successfully updated',
-    };
+    return order;
   }
 }

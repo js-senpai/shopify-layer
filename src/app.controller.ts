@@ -22,10 +22,8 @@ export class AppController {
     }
   }
 
-  @Put('/orders/status')
-  async changeStatus(
-    @Body() data: ChangeOrderStatusDto,
-  ): Promise<{ ok: string }> {
+  @Put('/orders/financial-status')
+  async changeStatus(@Body() data: ChangeOrderStatusDto): Promise<any> {
     try {
       return await this.appService.changeStatus(data);
     } catch (e) {
